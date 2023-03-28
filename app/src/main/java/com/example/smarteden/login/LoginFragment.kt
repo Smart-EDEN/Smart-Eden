@@ -1,4 +1,4 @@
-package com.example.smarteden
+package com.example.smarteden.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.smarteden.databinding.FragmentLoginBinding
+import com.example.smarteden.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -88,9 +89,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHomeScreen() {
-        val secondFragment = SecondFragment()
+        val homeFragment = HomeFragment()
         parentFragmentManager.beginTransaction()
-            .replace(this.id, secondFragment)
+            .replace(this.id, homeFragment)
             .commit()
         //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
