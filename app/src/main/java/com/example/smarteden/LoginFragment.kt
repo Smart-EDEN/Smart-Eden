@@ -1,19 +1,19 @@
 package com.example.smarteden
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.example.smarteden.databinding.FragmentFirstBinding
+import androidx.fragment.app.Fragment
+import com.example.smarteden.databinding.FragmentLoginBinding
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,20 +22,28 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.login.setOnClickListener {
+            navigateToHomeScreen()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToHomeScreen() {
+        val secondFragment = SecondFragment()
+        parentFragmentManager.beginTransaction()
+            .replace(this.id, secondFragment)
+            .commit()
+        //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 }
