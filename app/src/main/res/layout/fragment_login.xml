@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="Login Image"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:src="@mipmap/ic_launcher"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -75,7 +75,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
             android:text="Registrieren"/>
-
 
     </LinearLayout>
 </ScrollView>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "725204801131",
+    "project_id": "smarteden-oth",
+    "storage_bucket": "smarteden-oth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725204801131:android:a5afca69abf46dfaba832e",
+        "android_client_info": {
+          "package_name": "com.example.smarteden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725204801131-15p9i6iek6ij0ail9fk18ldd8vtn8b0d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smarteden",
+            "certificate_hash": "2f588656cef724dc84f739f88951a7fdc65a3292"
+          }
+        },
+        {
+          "client_id": "725204801131-uf7aid36ol6s3o5al72i72oe1dj2ktuc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2th1SVzHbIWGt37VpXM0sYrsl-b07iFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725204801131-2gd4nc78cb8e45dc2705i2tm5fkj2pia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
