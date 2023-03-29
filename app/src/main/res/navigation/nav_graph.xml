@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/fieldoverviewFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -15,4 +15,9 @@
         android:name="com.example.smarteden.ui.home.HomeFragment"
         android:label="@string/home_fragment_label"
         tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/fieldoverviewFragment"
+        android:name="com.example.smarteden.greenhousefields.FieldoverviewFragment"
+        android:label="fragment_fieldoverview"
+        tools:layout="@layout/fragment_fieldoverview" />
 </navigation>
