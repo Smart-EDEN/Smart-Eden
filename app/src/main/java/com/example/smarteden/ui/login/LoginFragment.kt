@@ -1,4 +1,4 @@
-package com.example.smarteden.login
+package com.example.smarteden.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.example.smarteden.data.FireStoreViewModel
 import com.example.smarteden.databinding.FragmentLoginBinding
-import com.example.smarteden.home.HomeFragment
+import com.example.smarteden.ui.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -17,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
+
+    private val fireStoreViewModel: FireStoreViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -63,6 +67,7 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
+                    fireStoreViewModel.setUser(auth.currentUser!!.uid)
                     navigateToHomeScreen()
                     // Benutzer erfolgreich angemeldet
                 } else {
@@ -75,6 +80,7 @@ class LoginFragment : Fragment() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
+                    fireStoreViewModel.addUser(auth.currentUser!!.uid, email)
                     navigateToHomeScreen()
                     // Benutzer erfolgreich registriert und angemeldet
                 } else {

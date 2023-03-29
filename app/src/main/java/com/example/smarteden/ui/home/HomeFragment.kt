@@ -1,11 +1,12 @@
-package com.example.smarteden.home
+package com.example.smarteden.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.smarteden.MainActivity
 import com.example.smarteden.databinding.FragmentHomeBinding
 
 /**
@@ -13,17 +14,22 @@ import com.example.smarteden.databinding.FragmentHomeBinding
  */
 class HomeFragment : Fragment() {
 
+    private lateinit var mainActivity: MainActivity
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity).supportActionBar?.title = "Home"
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        mainActivity = MainActivity()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,10 +37,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            Log.d("Bene", "Button clicked")
-            //findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
     }
 
     override fun onDestroyView() {
