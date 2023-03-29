@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.smarteden.login.LoginFragment"
+        android:name="com.example.smarteden.ui.login.LoginFragment"
         android:label="@string/login_fragment_label"
         tools:layout="@layout/fragment_login"/>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.smarteden.home.HomeFragment"
+        android:name="com.example.smarteden.ui.home.HomeFragment"
         android:label="@string/home_fragment_label"
         tools:layout="@layout/fragment_home"/>
 </navigation>

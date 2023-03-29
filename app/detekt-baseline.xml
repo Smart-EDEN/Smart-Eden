@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>UnusedPrivateMember:Greenhouse.kt$Greenhouse$private val id: String</ID>
+    <ID>UnusedPrivateMember:User.kt$User$private val email: String</ID>
+    <ID>UnusedPrivateMember:User.kt$User$private val greenhouseIds: ArrayList&lt;String&gt;</ID>
+    <ID>UnusedPrivateMember:User.kt$User$private val id: String</ID>
+    <ID>UnusedPrivateMember:User.kt$User$private val name: String</ID>
+  </CurrentIssues>
+</SmellBaseline>
