@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.smarteden.MainActivity
 import com.example.smarteden.databinding.FragmentHomeBinding
 
 /**
@@ -14,7 +13,6 @@ import com.example.smarteden.databinding.FragmentHomeBinding
  */
 class HomeFragment : Fragment() {
 
-    private lateinit var mainActivity: MainActivity
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -29,7 +27,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mainActivity = MainActivity()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
