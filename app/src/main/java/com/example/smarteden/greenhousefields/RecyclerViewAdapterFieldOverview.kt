@@ -6,14 +6,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarteden.R
+import com.example.smarteden.data.Field
 
-class RecyclerViewAdapterFieldOverview : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>):
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(
+     ) {
 
     class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val titleTextView= itemView.findViewById<TextView>(R.id.textview_title)!!
-        val subtitleTextView = itemView.findViewById<TextView>(R.id.textview_subtitle)!!
-        val descriptionTextView = itemView.findViewById<TextView>(R.id.textview_description)!!
+        val tvFieldId= itemView.findViewById<TextView>(R.id.textview_title)!!
+        val tvHumidity= itemView.findViewById<TextView>(R.id.textview_subtitle)!!
+        val tvPlant = itemView.findViewById<TextView>(R.id.textview_description)!!
 
     }
 
@@ -28,16 +31,16 @@ class RecyclerViewAdapterFieldOverview : RecyclerView.Adapter<RecyclerView.ViewH
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val cardViewHolder = holder as CardViewHolder
-            val title = "Card ${position+1} Title"
-            val subtitle = "Card ${position+1} Subtitle"
-            val description = "Card ${position+1} Description"
-            cardViewHolder.titleTextView.text = title
-            cardViewHolder.subtitleTextView.text = subtitle
-            cardViewHolder.descriptionTextView.text = description
+            val id = "Field ${dataset[position].id}"
+            val humidity = "Feuchtigkeit: ${dataset[position].humidity}"
+            val plant = "Pflanze ${dataset[position].plant}"
+            cardViewHolder.tvFieldId.text = id
+            cardViewHolder.tvHumidity.text = humidity
+            cardViewHolder.tvPlant.text = plant
         }
 
         override fun getItemCount(): Int {
-            return 10
+            return dataset.size
         }
     companion object{
         private const val multiplier = 0.5

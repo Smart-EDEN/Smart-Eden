@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarteden.R
+import com.example.smarteden.data.Field
 
-class FieldoverviewFragment : Fragment() {
+class FieldoverviewFragment : Fragment(
+    ) {
 
     private lateinit var recyclerView: RecyclerView
 
@@ -17,7 +19,12 @@ class FieldoverviewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_fieldoverview, container, false)
         recyclerView = view.findViewById(R.id.recyclerView_fields)
         recyclerView.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMN)//LinearLayoutManager(requireContext())
-        recyclerView.adapter = RecyclerViewAdapterFieldOverview()
+
+        //später über viewmodel:
+        val test = ArrayList<Field>()
+        test.add(Field("1","wett as hell","WEED"))
+        //
+        recyclerView.adapter = RecyclerViewAdapterFieldOverview(test)
         return view
     }
     companion object {
