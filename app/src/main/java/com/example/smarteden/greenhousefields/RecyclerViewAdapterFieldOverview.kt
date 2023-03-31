@@ -11,7 +11,6 @@ import com.example.smarteden.data.Field
 class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>(
      ) {
-
     class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val tvFieldId= itemView.findViewById<TextView>(R.id.textview_title)!!
