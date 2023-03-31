@@ -6,19 +6,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarteden.R
-class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val titleTextView= itemView.findViewById<TextView>(R.id.textview_title)
-    val subtitleTextView = itemView.findViewById<TextView>(R.id.textview_subtitle)
-    val descriptionTextView = itemView.findViewById<TextView>(R.id.textview_description)
+class RecyclerViewAdapterFieldOverview : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-}
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val titleTextView= itemView.findViewById<TextView>(R.id.textview_title)!!
+        val subtitleTextView = itemView.findViewById<TextView>(R.id.textview_subtitle)!!
+        val descriptionTextView = itemView.findViewById<TextView>(R.id.textview_description)!!
+
+    }
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cardviewfield, parent, false)
             val layoutParams = itemView.layoutParams as RecyclerView.LayoutParams
-            layoutParams.width = (parent.width * 0.5).toInt()
+            layoutParams.width = (parent.width * multiplier).toInt()
             itemView.layoutParams = layoutParams
             return CardViewHolder(itemView)
         }
@@ -36,5 +39,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun getItemCount(): Int {
             return 10
         }
-
+    companion object{
+        private const val multiplier = 0.5
     }
+    }
+
