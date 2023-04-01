@@ -56,9 +56,13 @@ class Fieldinfo : Fragment() {
                 sliderValueTextView.text = "$progress %"
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                //wird benötigt auch wenn detekt nicht will
+            }
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                //wird benötigt auch wenn detekt nicht will
+            }
         })
 
 
