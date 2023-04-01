@@ -15,6 +15,22 @@
             app:destination="@id/addGreenhouseFragment" />
     </fragment>
     <fragment
+        android:id="@+id/fieldoverviewFragment"
+        android:name="com.example.smarteden.greenhousefields.FieldoverviewFragment"
+        android:label="fragment_fieldoverview"
+        tools:layout="@layout/fragment_fieldoverview" >
+    <action
+        android:id="@+id/action_navigation_dashboard_to_FieldInfo"
+        app:destination="@id/fragment_fieldinfo" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_fieldinfo"
+        android:name="com.example.smarteden.greenhousefields.Fieldinfo"
+        android:label="fragment_fieldinfo"
+        tools:layout="@layout/fragment_fieldinfo"/>
+
+    <fragment
         android:id="@+id/addGreenhouseFragment"
         android:name="com.example.smarteden.ui.addgreenhouse.AddGreenhouseFragment"
         android:label="fragment_add_greenhouse"
