@@ -1,11 +1,16 @@
 package com.example.smarteden.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.smarteden.R
+import com.example.smarteden.data.FireStoreViewModel
 import com.example.smarteden.databinding.FragmentHomeBinding
 
 /**
@@ -13,16 +18,14 @@ import com.example.smarteden.databinding.FragmentHomeBinding
  */
 class HomeFragment : Fragment() {
 
+    private val firestoreViewModel: FireStoreViewModel by activityViewModels()
+
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onStart() {
-        super.onStart()
-        (activity as AppCompatActivity).supportActionBar?.title = "Home"
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,10 +37,28 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val recyclerView = binding.greenhouseRv
+
+        val greenhousesHome = firestoreViewModel.getLiveGreenhouses()
+
+        greenhousesHome.observe(viewLifecycleOwner) { greenhouses ->
+            recyclerView.adapter = GreenhouseAdapter(greenhouses, this)
+        }
+
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        binding.addGreenhouse.setOnClickListener {
+            findNavController().navigate(R.id.action_HomeFragment_to_addGreenhouseFragment)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun navigateToFieldOverview() {
+        Log.d("A", "Hallo Manu")
     }
 }

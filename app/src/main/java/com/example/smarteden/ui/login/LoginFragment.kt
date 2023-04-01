@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
+import com.example.smarteden.R
 import com.example.smarteden.data.FireStoreViewModel
 import com.example.smarteden.databinding.FragmentLoginBinding
-import com.example.smarteden.ui.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -36,8 +38,13 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         auth = FirebaseAuth.getInstance()
+        if(auth.currentUser?.uid != null) {
+            val fireStoreViewModel: FireStoreViewModel by activityViewModels()
+            fireStoreViewModel.setUser(auth.currentUser?.uid.toString())
+            navigateToHomeScreen()
+        }
+
         /*binding.login.setOnClickListener {
             navigateToHomeScreen()
         }*/
@@ -95,10 +102,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHomeScreen() {
-        val homeFragment = HomeFragment()
-        parentFragmentManager.beginTransaction()
+        findNavController().navigate(
+            R.id.action_loginFragment_to_HomeFragment, null,
+            navOptions { // Use the Kotlin DSL for building NavOptions
+                anim {
+                    enter = android.R.animator.fade_in
+                    exit = android.R.animator.fade_out
+                }
+            }
+        )
+        /*parentFragmentManager.beginTransaction()
             .replace(this.id, homeFragment)
-            .commit()
+            .commit()*/
         //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 }

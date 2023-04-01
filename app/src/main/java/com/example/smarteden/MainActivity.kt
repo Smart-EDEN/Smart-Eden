@@ -1,8 +1,10 @@
 package com.example.smarteden
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,8 +38,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.loginFragment, R.id.HomeFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
+        /*val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.navigation_home, R.id.navigation_offers,
+            R.id.navigation_my_bookings, R.id.navigation_my_account))*/
 
     }
 
@@ -61,5 +66,43 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val currentFragment = navController.currentDestination?.id
+        if(currentFragment.toString() == R.id.HomeFragment.toString())
+            onAlertDialog(this)
+        super.onBackPressed()
+    }
+
+    // When User cilcks on dialog button, call this method
+    private fun onAlertDialog(context: Context) {
+        //Instantiate builder variable
+        val builder = AlertDialog.Builder(context)
+
+        // set title
+        builder.setTitle("Warnung")
+
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        //set content area
+        builder.setMessage("Wollen Sie die App wirklich schließen?")
+
+        //set positive button
+        builder.setPositiveButton(
+            "Ja") { _, _ ->
+            // User clicked Update Now button
+            finish()
+        }
+
+        //set negative button
+        builder.setNegativeButton(
+            "Nein") { _, _ ->
+            // User cancelled the dialog
+        }
+
+        builder.show()
     }
 }
