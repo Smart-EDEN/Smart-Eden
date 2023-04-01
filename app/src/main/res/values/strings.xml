@@ -7,5 +7,12 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="add_greenhouse">add greenhouse</string>
+    <string name="txtpflanze">Pflanze:</string>
+    <string name="txtbewaesserung">Bewässerung:</string>
+    <string name="txterntezeitpunkt">Erntezeitpunkt:</string>
+    <string name="txthumidity">Feuchtigkeit:</string>
+    <string name="txtbewaesserungstarten">Bewässerung starten:</string>
+    <string name="txttemperatur">Temperatur:</string>
+    <string name="txtstartofslidervalue">0%</string>
 
 </resources>
