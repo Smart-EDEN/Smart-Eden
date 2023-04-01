@@ -8,12 +8,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class FieldStoreViewModel : ViewModel(){
-
+    private val db = Firebase.firestore
     private var _fields = MutableLiveData<ArrayList<Field>>()
     val fields: LiveData<ArrayList<Field>>
         get() = _fields
 
-    private val db = Firebase.firestore
+
     fun getFields() {
         db.collection(FIELD).addSnapshotListener { value, error ->
             if (error != null) {
@@ -23,9 +23,9 @@ class FieldStoreViewModel : ViewModel(){
 
             for (doc in value!!) {
                 val field = Field(
-                    doc.data!!["id"].toString(),
-                    doc.data!!["humidity"].toString(),
-                    doc.data!!["plant"].toString()
+                    doc.data["id"].toString(),
+                    doc.data["humidity"].toString(),
+                    doc.data["plant"].toString()
                 )
                 _fields.value?.add(field)
             }
