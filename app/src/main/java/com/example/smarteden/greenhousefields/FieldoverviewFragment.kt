@@ -26,6 +26,7 @@ class FieldoverviewFragment : Fragment(
 
         viewModel = ViewModelProvider(this).get(FieldStoreViewModel::class.java)
 
+        //TESTARRAY:
         val testArray = ArrayList<Field>()
         testArray.add(Field("1","45%","Tomaten"))
         testArray.add(Field("2","90%","Salat"))
@@ -35,7 +36,7 @@ class FieldoverviewFragment : Fragment(
 
 
         viewModel.fields.observe(viewLifecycleOwner){ fields ->
-           // recyclerView.adapter = RecyclerViewAdapterFieldOverview(fields,this)
+            //recyclerView.adapter = RecyclerViewAdapterFieldOverview(fields,this)
         }
         //nothing in here ?
         Log.d("Bier", viewModel.fields.value.toString())
