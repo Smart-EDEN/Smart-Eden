@@ -3,32 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fieldoverviewFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.smarteden.ui.login.LoginFragment"
-        android:label="@string/login_fragment_label"
-        tools:layout="@layout/fragment_login"/>
-    <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/HomeFragment"
         android:name="com.example.smarteden.ui.home.HomeFragment"
         android:label="@string/home_fragment_label"
-        tools:layout="@layout/fragment_home"/>
-    <fragment
-        android:id="@+id/fieldoverviewFragment"
-        android:name="com.example.smarteden.greenhousefields.FieldoverviewFragment"
-        android:label="fragment_fieldoverview"
-        tools:layout="@layout/fragment_fieldoverview" >
-
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_navigation_dashboard_to_FieldInfo"
-            app:destination="@id/fragment_fieldinfo" />
+            android:id="@+id/action_HomeFragment_to_addGreenhouseFragment"
+            app:destination="@id/addGreenhouseFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/fragment_fieldinfo"
-        android:name="com.example.smarteden.greenhousefields.Fieldinfo"
-        android:label="fragment_fieldinfo"
-        tools:layout="@layout/fragment_fieldinfo"/>
+        android:id="@+id/addGreenhouseFragment"
+        android:name="com.example.smarteden.ui.addgreenhouse.AddGreenhouseFragment"
+        android:label="fragment_add_greenhouse"
+        tools:layout="@layout/fragment_add_greenhouse" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.smarteden.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
 </navigation>
