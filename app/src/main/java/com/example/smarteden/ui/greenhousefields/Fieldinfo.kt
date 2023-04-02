@@ -1,4 +1,4 @@
-package com.example.smarteden.greenhousefields
+package com.example.smarteden.ui.greenhousefields
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -13,10 +13,13 @@
         <action
             android:id="@+id/action_HomeFragment_to_addGreenhouseFragment"
             app:destination="@id/addGreenhouseFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_fieldoverviewFragment"
+            app:destination="@id/fieldoverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/fieldoverviewFragment"
-        android:name="com.example.smarteden.greenhousefields.FieldoverviewFragment"
+        android:name="com.example.smarteden.ui.greenhousefields.FieldoverviewFragment"
         android:label="fragment_fieldoverview"
         tools:layout="@layout/fragment_fieldoverview" >
     <action
@@ -26,7 +29,7 @@
 
     <fragment
         android:id="@+id/fragment_fieldinfo"
-        android:name="com.example.smarteden.greenhousefields.Fieldinfo"
+        android:name="com.example.smarteden.ui.greenhousefields.Fieldinfo"
         android:label="fragment_fieldinfo"
         tools:layout="@layout/fragment_fieldinfo"/>
 

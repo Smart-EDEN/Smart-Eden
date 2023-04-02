@@ -1,4 +1,4 @@
-package com.example.smarteden.greenhousefields
+package com.example.smarteden.ui.greenhousefields
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,8 @@ import com.example.smarteden.R
 import com.example.smarteden.data.Field
 
 class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>,
-                                        private val listener: FieldoverviewFragment):
+                                        private val listener: FieldoverviewFragment
+):
     RecyclerView.Adapter<RecyclerView.ViewHolder>(
      ) {
     class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

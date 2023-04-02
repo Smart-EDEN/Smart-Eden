@@ -5,10 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class FireStoreViewModel : ViewModel() {
+
+    private val db = FirebaseFirestore.getInstance()
     lateinit var currentUserId: String
 
     private var _userInformation = MutableLiveData<User>()
@@ -16,17 +17,12 @@ class FireStoreViewModel : ViewModel() {
         get() = _userInformation
 
     private var _greenhouses = MutableLiveData<ArrayList<Greenhouse>>()
-        //getLiveGreenhouses() as MutableLiveData<ArrayList<Greenhouse>>
     val greenhouses: LiveData<ArrayList<Greenhouse>>
         get() = _greenhouses
-
-    private val db = Firebase.firestore
 
     fun setUser(newUserId: String) {
         currentUserId = newUserId
         getUserInformation()
-        getLiveGreenhouses()
-        Log.d("BeneView", "Greenhouse war called")
     }
 
     fun addUser(userId: String, email: String) {
@@ -69,27 +65,6 @@ class FireStoreViewModel : ViewModel() {
         Log.d("CheckSerialNumber", serialNumberAlreadyExists.toString())
         if (!serialNumberAlreadyExists)
             addSerialNumber(serialNumber)
-
-        /*db.collection(USER_COLLECTION).document(currentUserId).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    var idAlreadyExists = false
-                    val serialNumbersList = document["greenhouseIds"] as ArrayList<String>
-                    serialNumbersList.forEach { id ->
-                        if(id == serialNumber)
-                            idAlreadyExists = true
-                    }
-                    if(!idAlreadyExists) {
-                        serialNumbersList.add(serialNumber)
-                        addSerialNumber(serialNumber, serialNumbersList)
-                    }
-                } else {
-                    Log.d(TAG, "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }*/
     }
 
     private fun addSerialNumber(serialNumber: String) {
@@ -103,7 +78,7 @@ class FireStoreViewModel : ViewModel() {
         )
     }
 
-    fun getUserInformation() {
+    private fun getUserInformation() {
         db.collection(USER_COLLECTION).document(currentUserId).addSnapshotListener { doc, error ->
             if (error != null) {
                 Log.w(TAG, "Listen failed.", error)
@@ -116,32 +91,39 @@ class FireStoreViewModel : ViewModel() {
                 doc.data!!["email"].toString(),
                 greenhouseIds as ArrayList<String>
             )
+            greenhouseIds.forEach { id ->
+                getLiveGreenhouses(id)
+            }
             _userInformation.value = user
         }
     }
 
 
-    fun getLiveGreenhouses(): LiveData<ArrayList<Greenhouse>> {
-        val liveGreenhouses = MutableLiveData<ArrayList<Greenhouse>>()
-        val listGreenhouses = ArrayList<Greenhouse>()
-        db.collection(GREENHOUSE_COLLECTION).addSnapshotListener { value, error ->
-            listGreenhouses.clear()
-            if (error != null) {
-                Log.w(TAG, "Listen failed.", error)
-                return@addSnapshotListener
-            }
+    private fun getLiveGreenhouses(serialNumber: String) {
+        val docRef = db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                    val greenhouse = Greenhouse(document.id, document.data!!["name"].toString())
+                    if(_greenhouses.value != null) {
+                        var idExists = false
+                        greenhouses.value?.forEach { greenhouseId ->
+                            if(greenhouseId.id == serialNumber)
+                                idExists = true
+                        }
+                        if(!idExists)
+                            _greenhouses.value?.add(greenhouse)
+                    } else
+                        _greenhouses.value = arrayListOf(greenhouse)
 
-            for (doc in value!!) {
-                val greenhouse = Greenhouse(doc.id, doc.data["name"].toString())
-                userInformation.value?.greenhouseIds?.forEach { greenhouseId ->
-                    if(greenhouse.id == greenhouseId)
-                        listGreenhouses.add(greenhouse)
+                } else {
+                    Log.d(TAG, "No such document")
                 }
             }
-            liveGreenhouses.value = listGreenhouses
-            _greenhouses = liveGreenhouses
-        }
-        return liveGreenhouses
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }
     }
 
     companion object {
