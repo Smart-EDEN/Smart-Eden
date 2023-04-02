@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //firestoreViewModel.getLiveGreenhouses()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,11 +38,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //firestoreViewModel.getLiveGreenhouses()
         val recyclerView = binding.greenhouseRv
-
+/*
         val greenhousesHome = firestoreViewModel.getLiveGreenhouses()
 
         greenhousesHome.observe(viewLifecycleOwner) { greenhouses ->
+            recyclerView.adapter = GreenhouseAdapter(greenhouses, this)
+        }*/
+        firestoreViewModel.greenhouses.observe(viewLifecycleOwner) { greenhouses ->
+            Log.d("Bene", "Observe")
             recyclerView.adapter = GreenhouseAdapter(greenhouses, this)
         }
 
@@ -59,6 +65,6 @@ class HomeFragment : Fragment() {
     }
 
     fun navigateToFieldOverview() {
-        Log.d("A", "Hallo Manu")
+        findNavController().navigate(R.id.action_HomeFragment_to_fieldoverviewFragment)
     }
 }
