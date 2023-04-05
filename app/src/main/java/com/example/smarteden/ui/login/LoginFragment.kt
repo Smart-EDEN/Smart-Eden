@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         if(auth.currentUser?.uid != null) {
             val fireStoreViewModel: FireStoreViewModel by activityViewModels()
-            fireStoreViewModel.setUser(auth.currentUser?.uid.toString())
+            fireStoreViewModel.setUser(auth.currentUser?.uid.toString(), auth)
             navigateToHomeScreen()
         }
 
@@ -74,7 +74,7 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    fireStoreViewModel.setUser(auth.currentUser!!.uid)
+                    fireStoreViewModel.setUser(auth.currentUser!!.uid, auth)
                     navigateToHomeScreen()
                     // Benutzer erfolgreich angemeldet
                 } else {
@@ -87,7 +87,7 @@ class LoginFragment : Fragment() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    fireStoreViewModel.addUser(auth.currentUser!!.uid, email)
+                    fireStoreViewModel.addUser(auth.currentUser!!.uid, email, auth)
                     navigateToHomeScreen()
                     // Benutzer erfolgreich registriert und angemeldet
                 } else {

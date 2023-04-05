@@ -12,19 +12,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarteden.R
 import com.example.smarteden.data.Field
-import com.example.smarteden.data.FieldStoreViewModel
+import com.example.smarteden.data.FieldViewModel
 
 class FieldoverviewFragment : Fragment(
     ) {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: FieldStoreViewModel
+    private lateinit var viewModel: FieldViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_fieldoverview, container, false)
         recyclerView = view.findViewById(R.id.recyclerView_fields)
         recyclerView.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMN)//LinearLayoutManager(requireContext())
 
-        viewModel = ViewModelProvider(this).get(FieldStoreViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FieldViewModel::class.java)
 
         //TESTARRAY:
         val testArray = ArrayList<Field>()
