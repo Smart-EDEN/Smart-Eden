@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smarteden.R
+import com.example.smarteden.data.FieldViewModel
 import com.example.smarteden.data.FireStoreViewModel
 import com.example.smarteden.databinding.FragmentHomeBinding
 
@@ -19,6 +20,7 @@ import com.example.smarteden.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
 
     private val firestoreViewModel: FireStoreViewModel by activityViewModels()
+    private val fieldViewModel: FieldViewModel by activityViewModels()
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -64,7 +66,8 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun navigateToFieldOverview() {
+    fun navigateToFieldOverview(greenhouseId: String) {
+        fieldViewModel.setNewSerialNumber(greenhouseId)
         findNavController().navigate(R.id.action_HomeFragment_to_fieldoverviewFragment)
     }
 }

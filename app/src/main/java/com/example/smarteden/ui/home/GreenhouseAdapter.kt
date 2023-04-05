@@ -34,7 +34,7 @@ class GreenhouseAdapter (
         holder.greenhouseName.text = dataSet[position].name
 
         holder.itemView.setOnClickListener {
-            homeFragment.navigateToFieldOverview()
+            homeFragment.navigateToFieldOverview(dataSet[position].id)
         }
 
     }

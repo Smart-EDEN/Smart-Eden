@@ -9,13 +9,33 @@ import com.google.firebase.ktx.Firebase
 
 class FieldViewModel : ViewModel(){
     private val db = Firebase.firestore
-    private var _fields = MutableLiveData<ArrayList<Field>>()
+    private var serialNumber = "00001"
+    private var _fields: MutableLiveData<ArrayList<Field>> =
+        getLiveFields() as MutableLiveData<ArrayList<Field>>
     val fields: LiveData<ArrayList<Field>>
         get() = _fields
 
+    var currentField = Field("0", 0, "Bier")
 
-    fun getFields() {
-        db.collection(FIELD).addSnapshotListener { value, error ->
+    fun getFieldWithId(id: String) {
+        //var currentField = Field("0", 0, "Bier")
+        _fields.value?.forEach { field ->
+            if(field.id == id)
+                currentField = field
+        }
+    }
+
+
+    fun setNewSerialNumber(newSerialNumber: String) {
+        serialNumber = newSerialNumber
+        getLiveFields()
+    }
+    private fun getLiveFields(): LiveData<ArrayList<Field>> {
+        val listField = ArrayList<Field>()
+        val liveField = MutableLiveData<ArrayList<Field>>()
+        db.collection(GREENHOUSE_COLLECTION)
+            .document(serialNumber).collection(FIELD).addSnapshotListener{ value, error ->
+            listField.clear()
             if (error != null) {
                 Log.w(TAG, "Listen failed.", error)
                 return@addSnapshotListener
@@ -23,17 +43,23 @@ class FieldViewModel : ViewModel(){
 
             for (doc in value!!) {
                 val field = Field(
-                    doc.data["id"].toString(),
-                    doc.data["humidity"].toString(),
+                    doc.id,
+                    //doc.data["id"].toString(),
+                    doc.data["humidity"] as Number,
                     doc.data["plant"].toString()
                 )
-                _fields.value?.add(field)
+                listField.add(field)
+                //_fields.value?.add(field)
             }
+            liveField.value = listField
+            _fields = liveField
         }
+        return liveField
     }
 
     companion object{
         private const val TAG = "FirestoreViewModel"
+        private const val GREENHOUSE_COLLECTION = "SerialNumber"
         private const val FIELD = "Fields"
     }
 }

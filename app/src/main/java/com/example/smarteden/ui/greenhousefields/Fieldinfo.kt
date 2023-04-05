@@ -1,24 +1,25 @@
 package com.example.smarteden.ui.greenhousefields
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.smarteden.R
-import com.example.smarteden.data.Field
 import com.example.smarteden.data.FieldViewModel
-import kotlin.properties.Delegates
 
 class Fieldinfo : Fragment() {
-    var inputDataID by Delegates.notNull<Int>()
-    private lateinit var viewModel: FieldViewModel
+
+    private val fieldViewModel: FieldViewModel by activityViewModels()
+    //var inputDataID by Delegates.notNull<Int>()
+    //private lateinit var viewModel: FieldViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
-        val args = arguments
-        inputDataID = args?.getString("FieldId").toString().toInt()
+        //val args = arguments
+
+        //inputDataID = args?.getString("FieldId").toString().toInt()
         super.onCreate(savedInstanceState)
 
     }
@@ -29,20 +30,6 @@ class Fieldinfo : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_fieldinfo, container, false)
-
-        val fieldArray = ArrayList<Field>()
-
-        viewModel = ViewModelProvider(this).get(FieldViewModel::class.java)
-        viewModel.getFields()
-        viewModel.fields.observe(viewLifecycleOwner){ fields ->
-            fieldArray.addAll(fields)
-            // recyclerView.adapter = RecyclerViewAdapterFieldOverview(fields,this)
-        }
-        //TESTARRAY:
-        val testArray = ArrayList<Field>()
-        testArray.add(Field("1","45%","Tomaten"))
-        testArray.add(Field("2","90%","Salat"))
-        testArray.add(Field("3","1%","Kaktus"))
 
         val tvId = root.findViewById<TextView>(R.id.field_name)
         val tvPlant = root.findViewById<TextView>(R.id.plant_name)
@@ -66,9 +53,10 @@ class Fieldinfo : Fragment() {
         })
 
 
-        tvId.text = "Feld $inputDataID"
-        tvPlant.text = "Pflanze: ${testArray[inputDataID-1].plant}"
-        tvHumidity.text = "Feuchtigkeit: ${testArray[inputDataID-1].humidity}"
+        val currentField = fieldViewModel.currentField
+        tvId.text = "Feld ${currentField.id}"
+        tvPlant.text = "Pflanze: ${currentField.plant}"
+        tvHumidity.text = "Feuchtigkeit: ${currentField.humidity}%"
 
         return root
     }
