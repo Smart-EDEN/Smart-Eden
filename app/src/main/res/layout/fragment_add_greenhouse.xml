@@ -60,6 +60,7 @@
 
 
         <ImageButton
+            android:id="@+id/qrCodeImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="40dp"

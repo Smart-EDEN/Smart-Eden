@@ -37,7 +37,11 @@
         android:id="@+id/addGreenhouseFragment"
         android:name="com.example.smarteden.ui.addgreenhouse.AddGreenhouseFragment"
         android:label="fragment_add_greenhouse"
-        tools:layout="@layout/fragment_add_greenhouse" />
+        tools:layout="@layout/fragment_add_greenhouse" >
+        <action
+            android:id="@+id/action_addGreenhouseFragment_to_qrCodeScannerFragment"
+            app:destination="@id/qrCodeScannerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.smarteden.ui.login.LoginFragment"
@@ -47,4 +51,9 @@
             android:id="@+id/action_loginFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/qrCodeScannerFragment"
+        android:name="com.example.smarteden.ui.addgreenhouse.QrCodeScannerFragment"
+        android:label="fragment_qr_code_scanner"
+        tools:layout="@layout/fragment_qr_code_scanner" />
 </navigation>
