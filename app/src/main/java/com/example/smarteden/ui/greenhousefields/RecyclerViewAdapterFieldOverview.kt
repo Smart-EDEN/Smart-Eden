@@ -26,7 +26,11 @@ class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>,
             val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cardviewfield, parent, false)
             val layoutParams = itemView.layoutParams as RecyclerView.LayoutParams
             layoutParams.width = (parent.width * multiplier).toInt()
+
+            val height = parent.measuredHeight / 2
+            itemView.minimumHeight = height
             itemView.layoutParams = layoutParams
+
             return CardViewHolder(itemView)
         }
 
