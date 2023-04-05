@@ -40,25 +40,34 @@ class FireStoreViewModel : ViewModel() {
         )
     }
 
-    fun connectGreenhouseWithUser(serialNumber: String, password: String) {
-        db.collection(GREENHOUSE_COLLECTION).document(serialNumber).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    if (document["password"].toString() == password) {
-                        //Password and serial number correct
-                        checkSerialNumbersOfUser(serialNumber)
+    fun connectGreenhouseWithUser(serialNumber: String, password: String): Boolean {
+        if (isValid(serialNumber, password)) {
+            db.collection(GREENHOUSE_COLLECTION).document(serialNumber).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        if (document["password"].toString() == password) {
+                            //Password and serial number correct
+                            checkSerialNumbersOfUser(serialNumber)
+                        } else {
+                            //Password false
+                        }
                     } else {
-                        //Password false
+                        Log.d(TAG, "No such document")
                     }
-                } else {
-                    Log.d(TAG, "No such document")
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
+            return true
+        }
+        return false
     }
 
+    private fun isValid(serialNumber: String, password: String): Boolean {
+        if(serialNumber.isNotEmpty() && password.isNotEmpty())
+            return true
+        return false
+    }
     private fun checkSerialNumbersOfUser(serialNumber: String) {
         val user = userInformation.value!!
         var serialNumberAlreadyExists = false

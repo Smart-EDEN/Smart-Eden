@@ -1,6 +1,8 @@
 buildscript {
     dependencies {
         classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
+        classpath 'com.google.zxing:core:3.2.0'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
