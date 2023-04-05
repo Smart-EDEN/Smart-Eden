@@ -14,5 +14,6 @@
     <string name="txtbewaesserungstarten">Bewässerung starten:</string>
     <string name="txttemperatur">Temperatur:</string>
     <string name="txtstartofslidervalue">0%</string>
+    <string name="log_off">Ausloggen</string>
 
 </resources>

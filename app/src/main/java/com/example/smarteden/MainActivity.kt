@@ -4,18 +4,23 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.smarteden.data.FireStoreViewModel
 import com.example.smarteden.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    private val fireStoreViewModel: FireStoreViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +63,10 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_signout -> {
+                signOut()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -75,6 +84,16 @@ class MainActivity : AppCompatActivity() {
         if(currentFragment.toString() == R.id.HomeFragment.toString())
             onAlertDialog(this)
         super.onBackPressed()
+    }
+
+    private fun signOut() {
+        fireStoreViewModel.logUserOut()
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val startDestination = navController.graph.startDestinationId
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(startDestination, true)
+            .build()
+        navController.navigate(startDestination, null, navOptions)
     }
 
     // When User cilcks on dialog button, call this method

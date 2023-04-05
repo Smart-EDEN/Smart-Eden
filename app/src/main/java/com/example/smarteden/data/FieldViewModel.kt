@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class FieldStoreViewModel : ViewModel(){
+class FieldViewModel : ViewModel(){
     private val db = Firebase.firestore
     private var _fields = MutableLiveData<ArrayList<Field>>()
     val fields: LiveData<ArrayList<Field>>

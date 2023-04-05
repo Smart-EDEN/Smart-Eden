@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FireStoreViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
+    lateinit var auth: FirebaseAuth
     lateinit var currentUserId: String
 
     private var _userInformation = MutableLiveData<User>()
@@ -20,13 +22,15 @@ class FireStoreViewModel : ViewModel() {
     val greenhouses: LiveData<ArrayList<Greenhouse>>
         get() = _greenhouses
 
-    fun setUser(newUserId: String) {
+    fun setUser(newUserId: String, auth: FirebaseAuth) {
         currentUserId = newUserId
+        this.auth = auth
         getUserInformation()
     }
 
-    fun addUser(userId: String, email: String) {
+    fun addUser(userId: String, email: String, auth: FirebaseAuth) {
         currentUserId = userId
+        this.auth = auth
         db.collection(USER_COLLECTION).document(userId).set(
             hashMapOf(
                 "name" to "",
@@ -124,6 +128,10 @@ class FireStoreViewModel : ViewModel() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
+    }
+
+    fun logUserOut() {
+        auth.signOut()
     }
 
     companion object {

@@ -10,12 +10,12 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.example.smarteden.R
 import com.example.smarteden.data.Field
-import com.example.smarteden.data.FieldStoreViewModel
+import com.example.smarteden.data.FieldViewModel
 import kotlin.properties.Delegates
 
 class Fieldinfo : Fragment() {
     var inputDataID by Delegates.notNull<Int>()
-    private lateinit var viewModel: FieldStoreViewModel
+    private lateinit var viewModel: FieldViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         val args = arguments
         inputDataID = args?.getString("FieldId").toString().toInt()
@@ -32,7 +32,7 @@ class Fieldinfo : Fragment() {
 
         val fieldArray = ArrayList<Field>()
 
-        viewModel = ViewModelProvider(this).get(FieldStoreViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FieldViewModel::class.java)
         viewModel.getFields()
         viewModel.fields.observe(viewLifecycleOwner){ fields ->
             fieldArray.addAll(fields)
