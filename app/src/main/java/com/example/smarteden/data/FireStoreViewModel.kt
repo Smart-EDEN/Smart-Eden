@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 class FireStoreViewModel : ViewModel() {
 
@@ -22,6 +25,12 @@ class FireStoreViewModel : ViewModel() {
     val greenhouses: LiveData<ArrayList<Greenhouse>>
         get() = _greenhouses
 
+    init{
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build()
+        db.firestoreSettings = settings
+    }
     fun setUser(newUserId: String, auth: FirebaseAuth) {
         currentUserId = newUserId
         this.auth = auth
@@ -112,31 +121,27 @@ class FireStoreViewModel : ViewModel() {
     }
 
 
-    private fun getLiveGreenhouses(serialNumber: String) {
+    private fun getLiveGreenhouses(serialNumber: String) = runBlocking {
         val docRef = db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                    val greenhouse = Greenhouse(document.id, document.data!!["name"].toString())
-                    if(_greenhouses.value != null) {
-                        var idExists = false
-                        greenhouses.value?.forEach { greenhouseId ->
-                            if(greenhouseId.id == serialNumber)
-                                idExists = true
-                        }
-                        if(!idExists)
-                            _greenhouses.value?.add(greenhouse)
-                    } else
-                        _greenhouses.value = arrayListOf(greenhouse)
-
-                } else {
-                    Log.d(TAG, "No such document")
+        val docSnapshot = docRef.get().await()
+        if (docSnapshot.exists()) {
+            val document = docSnapshot
+            val greenhouse = Greenhouse(document.id, document.data!!["name"].toString())
+            if(_greenhouses.value != null) {
+                var idExists = false
+                greenhouses.value?.forEach { greenhouseId ->
+                    if(greenhouseId.id == serialNumber)
+                        idExists = true
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }
+                if(!idExists)
+                    _greenhouses.value?.add(greenhouse)
+            } else
+                _greenhouses.value = arrayListOf(greenhouse)
+
+            println("Document data: $document")
+        } else {
+            println("No such document")
+        }
     }
 
     fun logUserOut() {
