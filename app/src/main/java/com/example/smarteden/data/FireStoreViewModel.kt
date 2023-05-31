@@ -38,6 +38,7 @@ class FireStoreViewModel : ViewModel() {
                 "greenhouseIds" to ArrayList<String>()
             )
         )
+        _userInformation.value = User(userId, "", email, ArrayList())
     }
 
     fun connectGreenhouseWithUser(serialNumber: String, password: String): Boolean {
@@ -51,6 +52,24 @@ class FireStoreViewModel : ViewModel() {
                         } else {
                             //Password false
                         }
+                    } else {
+                        Log.d(TAG, "No such document")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
+            return true
+        }
+        return false
+    }
+
+    fun connectGreenhouseQR(serialNumber: String): Boolean{
+        if (isValid(serialNumber, "Tomate")) {
+            db.collection(GREENHOUSE_COLLECTION).document(serialNumber).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        checkSerialNumbersOfUser(serialNumber)
                     } else {
                         Log.d(TAG, "No such document")
                     }

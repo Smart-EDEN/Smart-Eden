@@ -9,7 +9,7 @@ import com.google.firebase.ktx.Firebase
 
 class FieldViewModel : ViewModel(){
     private val db = Firebase.firestore
-    private var serialNumber = "00001"
+    var serialNumber = "00001"
     private var _fields: MutableLiveData<ArrayList<Field>> =
         getLiveFields() as MutableLiveData<ArrayList<Field>>
     val fields: LiveData<ArrayList<Field>>

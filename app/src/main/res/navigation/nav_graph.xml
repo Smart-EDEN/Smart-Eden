@@ -25,6 +25,9 @@
     <action
         android:id="@+id/action_navigation_dashboard_to_FieldInfo"
         app:destination="@id/fragment_fieldinfo" />
+        <action
+            android:id="@+id/action_fieldoverviewFragment_to_shareGreenhouseFragment"
+            app:destination="@id/shareGreenhouseFragment" />
     </fragment>
 
     <fragment
@@ -55,5 +58,14 @@
         android:id="@+id/qrCodeScannerFragment"
         android:name="com.example.smarteden.ui.addgreenhouse.QrCodeScannerFragment"
         android:label="fragment_qr_code_scanner"
-        tools:layout="@layout/fragment_qr_code_scanner" />
+        tools:layout="@layout/fragment_qr_code_scanner" >
+        <action
+            android:id="@+id/action_qrCodeScannerFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shareGreenhouseFragment"
+        android:name="com.example.smarteden.ui.greenhousefields.ShareGreenhouseFragment"
+        android:label="fragment_share_greenhouse"
+        tools:layout="@layout/fragment_share_greenhouse" />
 </navigation>

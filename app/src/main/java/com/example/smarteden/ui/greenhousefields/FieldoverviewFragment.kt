@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -27,7 +28,10 @@ class FieldoverviewFragment : Fragment(
         fieldViewModel.fields.observe(viewLifecycleOwner){ fields ->
             recyclerView.adapter = RecyclerViewAdapterFieldOverview(fields,this)
         }
-
+        val btnShareGreenhouse: Button = view.findViewById(R.id.btn_share_greenhouse)
+        btnShareGreenhouse.setOnClickListener {
+            findNavController().navigate(R.id.action_fieldoverviewFragment_to_shareGreenhouseFragment)
+        }
         return view
     }
 

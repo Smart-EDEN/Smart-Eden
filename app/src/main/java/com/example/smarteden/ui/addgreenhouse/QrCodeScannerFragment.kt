@@ -11,12 +11,17 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.smarteden.R
+import com.example.smarteden.data.FireStoreViewModel
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 
 class QrCodeScannerFragment : Fragment(), ZXingScannerView.ResultHandler {
     private var scannerView: ZXingScannerView? = null
+    private val fireStoreViewModel: FireStoreViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         scannerView = ZXingScannerView(requireContext())
@@ -64,6 +69,8 @@ class QrCodeScannerFragment : Fragment(), ZXingScannerView.ResultHandler {
     override fun handleResult(result: Result?) {
         Log.d(TAG, "handleResult: ${result?.text}")
         Toast.makeText(context, "${result?.text}", Toast.LENGTH_SHORT).show()
+        if(fireStoreViewModel.connectGreenhouseQR(result?.text!!))
+            findNavController().navigate(R.id.action_qrCodeScannerFragment_to_HomeFragment)
         scannerView?.resumeCameraPreview(this)
     }
 
