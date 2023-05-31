@@ -15,5 +15,7 @@
     <string name="txttemperatur">Temperatur:</string>
     <string name="txtstartofslidervalue">0%</string>
     <string name="log_off">Ausloggen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
