@@ -34,7 +34,11 @@
         android:id="@+id/fragment_fieldinfo"
         android:name="com.example.smarteden.ui.greenhousefields.Fieldinfo"
         android:label="fragment_fieldinfo"
-        tools:layout="@layout/fragment_fieldinfo"/>
+        tools:layout="@layout/fragment_fieldinfo">
+        <action
+            android:id="@+id/action_fragment_fieldinfo_to_plantNewPlantFragment"
+            app:destination="@id/plantNewPlantFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addGreenhouseFragment"
@@ -68,4 +72,22 @@
         android:name="com.example.smarteden.ui.greenhousefields.ShareGreenhouseFragment"
         android:label="fragment_share_greenhouse"
         tools:layout="@layout/fragment_share_greenhouse" />
+    <fragment
+        android:id="@+id/plantNewPlantFragment"
+        android:name="com.example.smarteden.ui.plantnewplant.PlantNewPlantFragment"
+        android:label="fragment_plant_new_plant"
+        tools:layout="@layout/fragment_plant_new_plant" >
+        <action
+            android:id="@+id/action_plantNewPlantFragment_to_customPlantFragment"
+            app:destination="@id/customPlantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customPlantFragment"
+        android:name="com.example.smarteden.ui.plantnewplant.CustomPlantFragment"
+        android:label="fragment_custom_plant"
+        tools:layout="@layout/fragment_custom_plant" >
+        <action
+            android:id="@+id/action_customPlantFragment_to_fragment_fieldinfo"
+            app:destination="@id/fragment_fieldinfo" />
+    </fragment>
 </navigation>

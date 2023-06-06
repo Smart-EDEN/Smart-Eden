@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:checkable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/plant_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Tomate"
+            android:textSize="24sp"
+            android:layout_margin="4dp"
+            android:padding="8dp"
+            android:textColor="?android:attr/colorPrimary"
+            />
+
+        <TextView
+            android:id="@+id/plant_plant_months"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pflanzmonate"
+            android:textSize="17sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/plant_name"
+            app:layout_constraintTop_toBottomOf="@+id/plant_name"/>
+
+        <TextView
+            android:id="@+id/harvest_months"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Erntemonate"
+            android:textSize="17sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/plant_name"
+            app:layout_constraintTop_toBottomOf="@+id/plant_plant_months"/>
+
+        <TextView
+            android:id="@+id/grow_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wachsdauer"
+            android:textSize="17sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/plant_name"
+            app:layout_constraintTop_toBottomOf="@+id/harvest_months"/>
+
+        <TextView
+            android:id="@+id/general_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Allgemeine infos"
+            android:textSize="17sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintStart_toStartOf="@+id/plant_name"
+            app:layout_constraintTop_toBottomOf="@+id/grow_duration"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
