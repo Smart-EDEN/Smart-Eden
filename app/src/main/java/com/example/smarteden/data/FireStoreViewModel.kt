@@ -144,8 +144,7 @@ class FireStoreViewModel : ViewModel() {
         val docRef = db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
         val docSnapshot = docRef.get().await()
         if (docSnapshot.exists()) {
-            val document = docSnapshot
-            val greenhouse = Greenhouse(document.id, document.data!!["name"].toString())
+            val greenhouse = Greenhouse(docSnapshot.id, docSnapshot.data!!["name"].toString())
             if(_greenhouses.value != null) {
                 var idExists = false
                 greenhouses.value?.forEach { greenhouseId ->
@@ -157,7 +156,7 @@ class FireStoreViewModel : ViewModel() {
             } else
                 _greenhouses.value = arrayListOf(greenhouse)
 
-            println("Document data: $document")
+            println("Document data: $docSnapshot")
         } else {
             println("No such document")
         }
