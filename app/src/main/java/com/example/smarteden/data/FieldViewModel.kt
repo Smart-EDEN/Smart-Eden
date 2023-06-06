@@ -15,7 +15,7 @@ class FieldViewModel : ViewModel(){
     val fields: LiveData<ArrayList<Field>>
         get() = _fields
 
-    var currentField = Field("0", 0, "Bier")
+    var currentField = Field("0", 0, "Bier", 0L, 0, false, 1, 2)
 
     fun getFieldWithId(id: String) {
         //var currentField = Field("0", 0, "Bier")
@@ -42,11 +42,17 @@ class FieldViewModel : ViewModel(){
             }
 
             for (doc in value!!) {
+                Log.d("Bier", doc.toString())
                 val field = Field(
                     doc.id,
                     //doc.data["id"].toString(),
                     doc.data["humidity"] as Number,
-                    doc.data["plant"].toString()
+                    doc.data["plant"].toString(),
+                    doc.data["planted"] as Long,
+                    doc.data["duration"] as Number,
+                    doc.data["watering"] as Boolean,
+                    doc.data["requiredHumidity"] as Number,
+                    doc.data["requiredFrequencyHumidity"] as Number
                 )
                 listField.add(field)
                 //_fields.value?.add(field)
