@@ -6,5 +6,7 @@ data class Plant(
     val durationMonth: Int,
     val normalPlantMonths: String,
     val normalHarvestMonths: String,
-    val additionalInfo: String
+    val additionalInfo: String,
+    val requiredHumidity: Number,
+    val requiredFrequencyHumidity: Number
     )

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -29,6 +30,24 @@ class FieldViewModel : ViewModel(){
     fun setNewSerialNumber(newSerialNumber: String) {
         serialNumber = newSerialNumber
         getLiveFields()
+    }
+
+    fun plantNewPlantInField(plant: Plant, date: Long) {
+        sendNewFieldData(Field(
+            currentField.id,
+            humidity = 0,
+            plant.name,
+            date,
+            plant.durationMonth,
+            watering = false,
+            plant.requiredHumidity,
+            plant.requiredFrequencyHumidity
+        ))
+    }
+
+    fun sendNewFieldData(field: Field) {
+        db.collection(GREENHOUSE_COLLECTION).document(serialNumber).collection(FIELD).document(currentField.id)
+            .set(field, SetOptions.merge())
     }
     private fun getLiveFields(): LiveData<ArrayList<Field>> {
         val listField = ArrayList<Field>()

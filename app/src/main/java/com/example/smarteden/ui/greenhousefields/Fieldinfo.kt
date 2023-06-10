@@ -56,7 +56,7 @@ class Fieldinfo : Fragment() {
         tvId.text = "Pflanze: ${currentField.plant}"
         tvHumidity.text = "Feuchtigkeit: ${currentField.humidity}%"
         tvPlanted.text = "Gepflanzt: ${convertLongToTime(planted)}"
-        val harvestDate = getHarvestTime(planted, currentField.growDurationMonths.toInt())
+        val harvestDate = getHarvestTime(planted, currentField.duration.toInt())
         tvHarvested.text = "Reif: ${harvestDate}"
         tvWatering.text = if (currentField.watering) "Ein" else "Aus"
 

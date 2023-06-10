@@ -14,6 +14,10 @@ class PlantViewModel : ViewModel() {
     val savedPlants: LiveData<ArrayList<Plant>>
         get() = _savedPlants
 
+
+    fun saveNewPlant(plant: Plant) {
+        db.collection(PLANT_COLLECTION).add(plant)
+    }
     private fun getPlants(): LiveData<ArrayList<Plant>> {
         val listPlants = java.util.ArrayList<Plant>()
         val listPlantsLive = MutableLiveData<java.util.ArrayList<Plant>>()
@@ -33,7 +37,10 @@ class PlantViewModel : ViewModel() {
                             doc.data["durationMonth"].toString().toInt(),
                             doc.data["normalPlantMonths"].toString(),
                             doc.data["normalHarvestMonths"].toString(),
-                            doc.data["additionalInfo"].toString())
+                            doc.data["additionalInfo"].toString(),
+                            doc.data["requiredHumidity"] as Number,
+                            doc.data["requiredFrequencyHumidity"] as Number
+                        )
                         listPlants.add(plant)
                     } catch (e: NumberFormatException) {
                         Log.e(TAG, "Laden fehlgeschlagen ${e.message}")
