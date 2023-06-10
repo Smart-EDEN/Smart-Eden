@@ -4,6 +4,15 @@
     <!-- Strings used for fragments for navigation -->
     <string name="login_fragment_label">Login</string>
     <string name="home_fragment_label">Home</string>
+    <string name="add_greenhouse_label">Gewächshaus hinzufügen</string>
+    <string name="qr_code_scanner_label">QR Code Scanner</string>
+    <string name="fieldoverview_label">Gewächshaus Überblick</string>
+    <string name="share_greenhouse_label">Gewächshaus teilen</string>
+    <string name="fieldinfo_label">Feld Überblick</string>
+    <string name="plant_new_plant_label">Pflanze pflanzen</string>
+    <string name="custom_plant_label">Benutzerdefinierte Pflanze</string>
+
+    <!-- general strings -->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="add_greenhouse">add greenhouse</string>
@@ -15,7 +24,5 @@
     <string name="txttemperatur">Temperatur:</string>
     <string name="txtstartofslidervalue">0%</string>
     <string name="log_off">Ausloggen</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
