@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.smarteden.generalfunctions.datemanipulation.convertLongToFileTime
 import com.example.smarteden.generalfunctions.datemanipulation.oneDayBack
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -87,7 +89,10 @@ class LivePictureViewModel : ViewModel() {
             return@withContext try {
                 storage.reference.child(imagePath).downloadUrl.await().toString()
 
-            } catch (e: Exception) {
+            } catch (e: StorageException) {
+                e.printStackTrace()
+                ""
+            } catch (e: CancellationException) {
                 e.printStackTrace()
                 ""
             }
