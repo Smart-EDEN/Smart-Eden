@@ -28,6 +28,12 @@
         <action
             android:id="@+id/action_fieldoverviewFragment_to_shareGreenhouseFragment"
             app:destination="@id/shareGreenhouseFragment" />
+        <action
+            android:id="@+id/action_fieldoverviewFragment_to_controlFragment"
+            app:destination="@id/controlFragment" />
+        <action
+            android:id="@+id/action_fieldoverviewFragment_to_livePictureFragment"
+            app:destination="@id/livePictureFragment" />
     </fragment>
 
     <fragment
@@ -93,4 +99,14 @@
             android:id="@+id/action_customPlantFragment_to_fieldoverviewFragment"
             app:destination="@id/fieldoverviewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/controlFragment"
+        android:name="com.example.smarteden.ui.control.ControlFragment"
+        android:label="@string/control_label"
+        tools:layout="@layout/fragment_control" />
+    <fragment
+        android:id="@+id/livePictureFragment"
+        android:name="com.example.smarteden.ui.livepic.LivePictureFragment"
+        android:label="@string/live_label"
+        tools:layout="@layout/fragment_live_picture" />
 </navigation>

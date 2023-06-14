@@ -48,6 +48,7 @@ class HomeFragment : Fragment() {
         greenhousesHome.observe(viewLifecycleOwner) { greenhouses ->
             recyclerView.adapter = GreenhouseAdapter(greenhouses, this)
         }*/
+
         firestoreViewModel.greenhouses.observe(viewLifecycleOwner) { greenhouses ->
             Log.d("Bene", "Observe")
             recyclerView.adapter = GreenhouseAdapter(greenhouses, this)

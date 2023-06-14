@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class FireStoreViewModel : ViewModel() {
@@ -117,6 +118,7 @@ class FireStoreViewModel : ViewModel() {
             updates
 
         )
+        getLiveGreenhouses(serialNumber)
     }
 
     private fun getUserInformation() {
@@ -140,11 +142,22 @@ class FireStoreViewModel : ViewModel() {
     }
 
 
-    private fun getLiveGreenhouses(serialNumber: String) = runBlocking {
+    private fun getLiveGreenhouses(serialNumber: String) = viewModelScope.launch {
         val docRef = db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
         val docSnapshot = docRef.get().await()
         if (docSnapshot.exists()) {
-            val greenhouse = Greenhouse(docSnapshot.id, docSnapshot.data!!["name"].toString())
+            val greenhouse =
+                Greenhouse(
+                    docSnapshot.id,
+                    docSnapshot.data!!["name"].toString(),
+                    docSnapshot.data!!["Temperatur"].toString().toDouble(),
+                    docSnapshot.data!!["Luftfeuchtigkeit"].toString().toInt(),
+                    docSnapshot.data!!["rollo"].toString(),
+                    docSnapshot.data!!["boost"].toString().toBoolean(),
+                    docSnapshot.data!!["window"].toString(),
+                    docSnapshot.data!!["fan"].toString()
+                )
+
             if(_greenhouses.value != null) {
                 var idExists = false
                 greenhouses.value?.forEach { greenhouseId ->
