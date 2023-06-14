@@ -13,8 +13,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.smarteden.R
 import com.example.smarteden.data.FieldViewModel
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.smarteden.generalfunctions.datemanipulation.convertLongToTime
+import com.example.smarteden.generalfunctions.datemanipulation.getHarvestTime
 
 class Fieldinfo : Fragment() {
 
@@ -36,6 +36,7 @@ class Fieldinfo : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_fieldinfo, container, false)
 
+        val fieldId = root.findViewById<TextView>(R.id.field_id)
         val tvId = root.findViewById<TextView>(R.id.field_name)
         val tvHumidity = root.findViewById<TextView>(R.id.humidity)
         val tvPlanted = root.findViewById<TextView>(R.id.planted_date)
@@ -50,17 +51,15 @@ class Fieldinfo : Fragment() {
             onAlertDialog(context!!)
         }
 
-
         val currentField = fieldViewModel.currentField
+        fieldId.text = "Feld ${currentField.id}"
         val planted = currentField.planted
-        tvId.text = "Pflanze: ${currentField.plant}"
-        tvHumidity.text = "Feuchtigkeit: ${currentField.humidity}%"
+        tvId.text = currentField.plant
+        tvHumidity.text = currentField.humidity.toString() + "%"
         tvPlanted.text = "Gepflanzt: ${convertLongToTime(planted)}"
         val harvestDate = getHarvestTime(planted, currentField.duration.toInt())
         tvHarvested.text = "Reif: ${harvestDate}"
         tvWatering.text = if (currentField.watering) "Ein" else "Aus"
-
-
 
         return root
     }
@@ -78,41 +77,20 @@ class Fieldinfo : Fragment() {
         builder.setMessage("Wollen Sie das Feld wirklich ernten und die Pflanze des Feldes zurücksetzen?")
 
         //set positive button
-        builder.setPositiveButton(
-            "Ja") { _, _ ->
+        builder.setPositiveButton("Ja") { _, _ ->
+            fieldViewModel.harvestField()
+            findNavController().popBackStack()
             // User clicked Update Now button
         }
 
         //set negative button
-        builder.setNegativeButton(
-            "Nein") { _, _ ->
+        builder.setNegativeButton("Nein") { _, _ ->
             // User cancelled the dialog
         }
 
         builder.show()
     }
 
-    private fun getHarvestTime(time: Long, duration: Int): String{
-
-        val currentDate = Calendar.getInstance() // Aktuelles Datum
-        currentDate.timeInMillis = time
-        currentDate.add(Calendar.MONTH, duration) // 3 Monate hinzufügen
-
-        val year = currentDate.get(Calendar.YEAR)
-        val month = currentDate.get(Calendar.MONTH) + 1 // Monate beginnen bei 0, daher +1
-        val day = currentDate.get(Calendar.DAY_OF_MONTH)
-
-        val formattedDate = String.format(Locale.GERMAN, "%02d.%02d.%04d", day, month, year)
-        //val formattedDate = format.format(Da)
-        println("Neues Datum: $formattedDate")
-        return formattedDate
-    }
-
-    private fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("dd.MM.yyyy")
-        return format.format(date)
-    }
 /*
     private fun currentTimeToLong(): Long {
         return System.currentTimeMillis()

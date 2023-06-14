@@ -15,9 +15,38 @@ class FieldViewModel : ViewModel(){
         getLiveFields() as MutableLiveData<ArrayList<Field>>
     val fields: LiveData<ArrayList<Field>>
         get() = _fields
+    private var _currentGreenhouse: MutableLiveData<Greenhouse> =
+        getActualGreenhouse() as MutableLiveData<Greenhouse>
+    val currentGreenhouse: LiveData<Greenhouse>
+        get() = _currentGreenhouse
 
     var currentField = Field("0", 0, "Bier", 0L, 0, false, 1, 2)
 
+
+    private fun getActualGreenhouse(): LiveData<Greenhouse> {
+        val liveGreenhouse = MutableLiveData<Greenhouse>()
+        db.collection(GREENHOUSE_COLLECTION).document(serialNumber).addSnapshotListener { docSnapshot, _ ->
+            if (docSnapshot!!.exists()) {
+                val greenhouse =
+                    Greenhouse(
+                        docSnapshot.id,
+                        docSnapshot.data!!["name"].toString(),
+                        docSnapshot.data!!["Temperatur"].toString().toDouble(),
+                        docSnapshot.data!!["Luftfeuchtigkeit"].toString().toInt(),
+                        docSnapshot.data!!["rollo"].toString(),
+                        docSnapshot.data!!["boost"].toString().toBoolean(),
+                        docSnapshot.data!!["window"].toString(),
+                        docSnapshot.data!!["fan"].toString()
+                    )
+                liveGreenhouse.value = greenhouse
+                _currentGreenhouse = liveGreenhouse
+                println("Document data: $docSnapshot")
+            } else {
+                println("No such document")
+            }
+        }
+        return liveGreenhouse
+    }
     fun getFieldWithId(id: String) {
         //var currentField = Field("0", 0, "Bier")
         _fields.value?.forEach { field ->
@@ -26,10 +55,24 @@ class FieldViewModel : ViewModel(){
         }
     }
 
+    fun harvestField() {
+        sendNewFieldData(Field(
+            currentField.id,
+            humidity = 0,
+            plant = "Feld leer",
+            planted = 0L,
+            duration = 0,
+            watering = false,
+            requiredHumidity = 0,
+            requiredFrequencyHumidity = 0
+        ))
+    }
+
 
     fun setNewSerialNumber(newSerialNumber: String) {
         serialNumber = newSerialNumber
         getLiveFields()
+        getActualGreenhouse()
     }
 
     fun plantNewPlantInField(plant: Plant, date: Long) {
@@ -45,7 +88,7 @@ class FieldViewModel : ViewModel(){
         ))
     }
 
-    fun sendNewFieldData(field: Field) {
+    private fun sendNewFieldData(field: Field) {
         db.collection(GREENHOUSE_COLLECTION).document(serialNumber).collection(FIELD).document(currentField.id)
             .set(field, SetOptions.merge())
     }
@@ -82,9 +125,28 @@ class FieldViewModel : ViewModel(){
         return liveField
     }
 
+    fun sendRolloCommand(command: String) {
+        db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
+            .collection(CONTROL).document(ROLLO).set( hashMapOf("manual" to command))
+    }
+
+    fun sendWindowCommand(command: String) {
+        db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
+            .collection(CONTROL).document(WINDOW).set( hashMapOf("manual" to command))
+    }
+
+    fun sendBoostCommand(command: String) {
+        db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
+            .collection(CONTROL).document(BOOST).set( hashMapOf("manual" to command))
+    }
+
     companion object{
         private const val TAG = "FirestoreViewModel"
         private const val GREENHOUSE_COLLECTION = "SerialNumber"
+        private const val CONTROL = "Control"
+        private const val ROLLO = "Rollo"
+        private const val WINDOW = "Window"
+        private const val BOOST = "Boost"
         private const val FIELD = "Fields"
     }
 }

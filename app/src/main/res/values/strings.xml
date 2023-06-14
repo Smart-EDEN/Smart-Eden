@@ -11,6 +11,8 @@
     <string name="fieldinfo_label">Feld Überblick</string>
     <string name="plant_new_plant_label">Pflanze pflanzen</string>
     <string name="custom_plant_label">Benutzerdefinierte Pflanze</string>
+    <string name="control_label">Gewächshaus Steuerung</string>
+    <string name="live_label">Heute</string>
 
     <!-- general strings -->
     <string name="next">Next</string>
@@ -24,5 +26,7 @@
     <string name="txttemperatur">Temperatur:</string>
     <string name="txtstartofslidervalue">0%</string>
     <string name="log_off">Ausloggen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -13,9 +13,8 @@ import com.example.smarteden.data.FieldViewModel
 import com.example.smarteden.data.Plant
 import com.example.smarteden.data.PlantViewModel
 import com.example.smarteden.databinding.FragmentCustomPlantBinding
+import com.example.smarteden.generalfunctions.datemanipulation.convertLongToTime
 import com.google.android.material.datepicker.MaterialDatePicker
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class CustomPlantFragment : Fragment() {
@@ -134,11 +133,6 @@ class CustomPlantFragment : Fragment() {
         _binding = null
     }
 
-    private fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("dd.MM.yyyy")
-        return format.format(date)
-    }
 
     companion object{
         private const val MUCH = 5
