@@ -25,7 +25,7 @@ class FieldViewModel : ViewModel(){
 
     private fun getActualGreenhouse(): LiveData<Greenhouse> {
         val liveGreenhouse = MutableLiveData<Greenhouse>()
-        db.collection(GREENHOUSE_COLLECTION).document(serialNumber).addSnapshotListener { docSnapshot, error ->
+        db.collection(GREENHOUSE_COLLECTION).document(serialNumber).addSnapshotListener { docSnapshot, _ ->
             if (docSnapshot!!.exists()) {
                 val greenhouse =
                     Greenhouse(
