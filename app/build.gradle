@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
+
 android {
     namespace 'com.example.smarteden'
     compileSdk 33
@@ -59,6 +60,10 @@ dependencies {
 
     //Glide for pictures
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
     testImplementation 'junit:junit:4.13.2'

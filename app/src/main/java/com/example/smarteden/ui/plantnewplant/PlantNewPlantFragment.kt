@@ -1,7 +1,6 @@
 package com.example.smarteden.ui.plantnewplant
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +64,8 @@ class PlantNewPlantFragment : Fragment() {
 
         datePicker.addOnPositiveButtonClickListener {newTime ->
             fieldViewModel.plantNewPlantInField(plant, newTime)
-            findNavController().navigate(R.id.action_plantNewPlantFragment_to_fieldoverviewFragment)
+            findNavController().popBackStack()
+            //findNavController().navigate(R.id.action_plantNewPlantFragment_to_fieldoverviewFragment)
             // Respond to positive button click.
         }
         datePicker.addOnNegativeButtonClickListener {
@@ -80,6 +80,7 @@ class PlantNewPlantFragment : Fragment() {
 
 
         binding.btnCustom.setOnClickListener {
+
             findNavController().navigate(R.id.action_plantNewPlantFragment_to_customPlantFragment)
         }
     }
@@ -92,6 +93,5 @@ class PlantNewPlantFragment : Fragment() {
     fun clickPlant(newPlant: Plant) {
         datePicker.show(parentFragmentManager, "PlantNewPlant")
         plant = newPlant
-        Log.d("TODO", "database delete field infos $plant")
     }
 }
