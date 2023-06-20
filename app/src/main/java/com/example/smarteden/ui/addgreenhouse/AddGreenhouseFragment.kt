@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.smarteden.R
 import com.example.smarteden.data.FireStoreViewModel
 import com.example.smarteden.databinding.FragmentAddGreenhouseBinding
+import org.junit.Ignore
 
+@Ignore
 class AddGreenhouseFragment : Fragment() {
 
     private val firestoreViewModel: FireStoreViewModel by activityViewModels()

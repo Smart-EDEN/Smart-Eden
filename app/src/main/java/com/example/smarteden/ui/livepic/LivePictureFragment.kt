@@ -12,15 +12,16 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.smarteden.data.LivePictureViewModel
 import com.example.smarteden.databinding.FragmentLivePictureBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import org.junit.Ignore
 
 
+@Ignore("UI")
 class LivePictureFragment : Fragment() {
 
     private val livePictureViewModel: LivePictureViewModel by activityViewModels()
+
+    private lateinit var scope: CoroutineScope
     private var _binding: FragmentLivePictureBinding? = null
 
     private lateinit var imageView: ImageView
@@ -45,7 +46,7 @@ class LivePictureFragment : Fragment() {
         livePictureViewModel.today.observe(viewLifecycleOwner) { urlToday ->
             progressBar.visibility = View.GONE
             if (urlToday == "") {
-                Toast.makeText(context, "Kein Bild verfügbar", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Heute kein Bild verfügbar", Toast.LENGTH_LONG).show()
             } else {
                 Glide.with(this@LivePictureFragment)
                     .load(urlToday)
@@ -63,7 +64,8 @@ class LivePictureFragment : Fragment() {
         }
     }
     private fun makeVideo() {
-        CoroutineScope(Dispatchers.Main).launch {
+        scope = CoroutineScope(Dispatchers.Main)
+        scope.launch {
             for(item in livePictureViewModel.imageUrls.value!!) {
                 Log.d("Bier", item)
                 Glide.with(this@LivePictureFragment)
@@ -82,6 +84,7 @@ class LivePictureFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        scope.cancel()
         _binding = null
     }
 
