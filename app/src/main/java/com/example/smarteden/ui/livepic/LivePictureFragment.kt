@@ -12,7 +12,11 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.smarteden.data.LivePictureViewModel
 import com.example.smarteden.databinding.FragmentLivePictureBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import org.junit.Ignore
 
 
