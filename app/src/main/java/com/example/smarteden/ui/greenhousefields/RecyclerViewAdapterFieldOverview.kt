@@ -37,7 +37,7 @@ class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>,
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val cardViewHolder = holder as CardViewHolder
             val id = "Feld ${dataset[position].id}"
-            val humidity = "Feuchtigkeit: ${dataset[position].humidity}"
+            val humidity = "Feuchtigkeit: ${dataset[position].humidity}%"
             val plant = "Pflanze: ${dataset[position].plant}"
             cardViewHolder.tvFieldId.text = id
             cardViewHolder.tvHumidity.text = humidity
@@ -54,5 +54,5 @@ class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>,
     companion object{
         private const val multiplier = 0.5
     }
-    }
+}
 

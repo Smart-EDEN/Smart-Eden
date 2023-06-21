@@ -25,7 +25,7 @@ class LivePictureFragment : Fragment() {
 
     private val livePictureViewModel: LivePictureViewModel by activityViewModels()
 
-    private lateinit var scope: CoroutineScope
+    private val scope = CoroutineScope(Dispatchers.Main)
     private var _binding: FragmentLivePictureBinding? = null
 
     private lateinit var imageView: ImageView
@@ -68,7 +68,6 @@ class LivePictureFragment : Fragment() {
         }
     }
     private fun makeVideo() {
-        scope = CoroutineScope(Dispatchers.Main)
         scope.launch {
             for(item in livePictureViewModel.imageUrls.value!!) {
                 Log.d("Bier", item)
