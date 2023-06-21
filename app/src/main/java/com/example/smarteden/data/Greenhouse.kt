@@ -8,5 +8,6 @@ data class Greenhouse(
     val rollo: String,
     val boost: Boolean,
     val window: String,
-    val fan: String
+    val fan: String,
+    val manualMode: Boolean
     )

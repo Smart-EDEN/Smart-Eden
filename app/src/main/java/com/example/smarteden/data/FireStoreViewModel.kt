@@ -155,7 +155,8 @@ class FireStoreViewModel : ViewModel() {
                     docSnapshot.data!!["rollo"].toString(),
                     docSnapshot.data!!["boost"].toString().toBoolean(),
                     docSnapshot.data!!["window"].toString(),
-                    docSnapshot.data!!["fan"].toString()
+                    docSnapshot.data!!["fan"].toString(),
+                    docSnapshot.data!!["manualMode"].toString().toBoolean()
                 )
 
             if(_greenhouses.value != null) {

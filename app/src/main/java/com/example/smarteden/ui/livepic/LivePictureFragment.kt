@@ -12,11 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.smarteden.data.LivePictureViewModel
 import com.example.smarteden.databinding.FragmentLivePictureBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import org.junit.Ignore
 
 
@@ -25,7 +21,7 @@ class LivePictureFragment : Fragment() {
 
     private val livePictureViewModel: LivePictureViewModel by activityViewModels()
 
-    private lateinit var scope: CoroutineScope
+    private val scope = CoroutineScope(Dispatchers.Main)
     private var _binding: FragmentLivePictureBinding? = null
 
     private lateinit var imageView: ImageView
@@ -68,7 +64,6 @@ class LivePictureFragment : Fragment() {
         }
     }
     private fun makeVideo() {
-        scope = CoroutineScope(Dispatchers.Main)
         scope.launch {
             for(item in livePictureViewModel.imageUrls.value!!) {
                 Log.d("Bier", item)

@@ -26,23 +26,26 @@ class FieldViewModel : ViewModel(){
     private fun getActualGreenhouse(): LiveData<Greenhouse> {
         val liveGreenhouse = MutableLiveData<Greenhouse>()
         db.collection(GREENHOUSE_COLLECTION).document(serialNumber).addSnapshotListener { docSnapshot, _ ->
-            if (docSnapshot!!.exists()) {
-                val greenhouse =
-                    Greenhouse(
-                        docSnapshot.id,
-                        docSnapshot.data!!["name"].toString(),
-                        docSnapshot.data!!["Temperatur"].toString().toDouble(),
-                        docSnapshot.data!!["Luftfeuchtigkeit"].toString().toInt(),
-                        docSnapshot.data!!["rollo"].toString(),
-                        docSnapshot.data!!["boost"].toString().toBoolean(),
-                        docSnapshot.data!!["window"].toString(),
-                        docSnapshot.data!!["fan"].toString()
-                    )
-                liveGreenhouse.value = greenhouse
-                _currentGreenhouse = liveGreenhouse
-                println("Document data: $docSnapshot")
-            } else {
-                println("No such document")
+            if(docSnapshot != null) {
+                if (docSnapshot.exists()) {
+                    val greenhouse =
+                        Greenhouse(
+                            docSnapshot.id,
+                            docSnapshot.data!!["name"].toString(),
+                            docSnapshot.data!!["Temperatur"].toString().toDouble(),
+                            docSnapshot.data!!["Luftfeuchtigkeit"].toString().toInt(),
+                            docSnapshot.data!!["rollo"].toString(),
+                            docSnapshot.data!!["boost"].toString().toBoolean(),
+                            docSnapshot.data!!["window"].toString(),
+                            docSnapshot.data!!["fan"].toString(),
+                            docSnapshot.data!!["manualMode"].toString().toBoolean()
+                        )
+                    liveGreenhouse.value = greenhouse
+                    _currentGreenhouse = liveGreenhouse
+                    println("Document data: $docSnapshot")
+                } else {
+                    println("No such document")
+                }
             }
         }
         return liveGreenhouse
@@ -108,9 +111,9 @@ class FieldViewModel : ViewModel(){
                 val field = Field(
                     doc.id,
                     //doc.data["id"].toString(),
-                    doc.data["humidity"] as Number,
+                    doc.data["humidity"].toString().toInt(),
                     doc.data["plant"].toString(),
-                    doc.data["planted"] as Long,
+                    doc.data["planted"].toString().toLong(),
                     doc.data["duration"] as Number,
                     doc.data["watering"] as Boolean,
                     doc.data["requiredHumidity"] as Number,
@@ -135,9 +138,14 @@ class FieldViewModel : ViewModel(){
             .collection(CONTROL).document(WINDOW).set( hashMapOf("manual" to command))
     }
 
-    fun sendBoostCommand(command: String) {
+    fun sendBoostCommand(command: Boolean) {
+        db.collection(GREENHOUSE_COLLECTION).document(serialNumber).update("boost", command)
+            //.collection(CONTROL).document(BOOST).set( hashMapOf("manual" to command))
+    }
+
+    fun sendManualMode(manualMode: Boolean) {
         db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
-            .collection(CONTROL).document(BOOST).set( hashMapOf("manual" to command))
+            .set(hashMapOf("manualMode" to manualMode), SetOptions.merge() )
     }
 
     companion object{
@@ -146,7 +154,7 @@ class FieldViewModel : ViewModel(){
         private const val CONTROL = "Control"
         private const val ROLLO = "Rollo"
         private const val WINDOW = "Window"
-        private const val BOOST = "Boost"
+        //private const val BOOST = "Boost"
         private const val FIELD = "Fields"
     }
 }
