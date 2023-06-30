@@ -47,10 +47,10 @@ class ControlFragment : Fragment() {
             }
         }
 
-        binding.rolloUp.setOnClickListener { fieldViewModel.sendRolloCommand("up") }
-        binding.rolloDown.setOnClickListener { fieldViewModel.sendRolloCommand("down") }
+        binding.rolloUp.setOnClickListener { fieldViewModel.sendRolloCommand("open") }
+        binding.rolloDown.setOnClickListener { fieldViewModel.sendRolloCommand("close") }
         binding.openWindow.setOnClickListener { fieldViewModel.sendWindowCommand("open") }
-        binding.closeWindow.setOnClickListener { fieldViewModel.sendWindowCommand("closed") }
+        binding.closeWindow.setOnClickListener { fieldViewModel.sendWindowCommand("close") }
         binding.boostOn.setOnClickListener { fieldViewModel.sendBoostCommand(true) }
         binding.boostOff.setOnClickListener { fieldViewModel.sendBoostCommand(false) }
         binding.manualMode.setOnCheckedChangeListener { button, isChecked ->

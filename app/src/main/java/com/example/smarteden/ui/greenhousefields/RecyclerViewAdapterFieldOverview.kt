@@ -37,7 +37,15 @@ class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>,
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val cardViewHolder = holder as CardViewHolder
             val id = "Feld ${dataset[position].id}"
-            val humidity = "Feuchtigkeit: ${dataset[position].humidity}%"
+            val stepOfHumidity = when(dataset[position].humidity){
+                WET -> "Sehr feucht"
+                ZW_WET_MIDDLE -> "Feucht"
+                MIDDLE -> "Mittel"
+                ZW_MIDDLE_DRY -> "Trocken"
+                DRY -> "Sehr trocken"
+                else -> dataset[position].humidity.toString() //"Error"
+            }
+            val humidity = "Feuchtigkeit: $stepOfHumidity"
             val plant = "Pflanze: ${dataset[position].plant}"
             cardViewHolder.tvFieldId.text = id
             cardViewHolder.tvHumidity.text = humidity
@@ -53,6 +61,12 @@ class RecyclerViewAdapterFieldOverview (private val dataset: ArrayList<Field>,
         }
     companion object{
         private const val multiplier = 0.5
+
+        private const val WET = 1
+        private const val ZW_WET_MIDDLE = 2
+        private const val MIDDLE = 3
+        private const val ZW_MIDDLE_DRY = 4
+        private const val DRY = 5
     }
 }
 

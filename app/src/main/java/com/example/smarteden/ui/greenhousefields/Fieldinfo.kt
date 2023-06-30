@@ -55,7 +55,15 @@ class Fieldinfo : Fragment() {
         fieldId.text = "Feld ${currentField.id}"
         val planted = currentField.planted
         tvId.text = currentField.plant
-        tvHumidity.text = currentField.humidity.toString() + "%"
+        val stepOfHumidity = when(currentField.humidity){
+            WET -> "Sehr feucht"
+            ZW_WET_MIDDLE -> "Feucht"
+            MIDDLE -> "Mittel"
+            ZW_MIDDLE_DRY -> "Trocken"
+            DRY -> "Sehr trocken"
+            else -> "Error"
+        }
+        tvHumidity.text = stepOfHumidity
         tvPlanted.text = "Gepflanzt: ${convertLongToTime(planted)}"
         val harvestDate = getHarvestTime(planted, currentField.duration.toInt())
         tvHarvested.text = "Reif: ${harvestDate}"
@@ -89,6 +97,14 @@ class Fieldinfo : Fragment() {
         }
 
         builder.show()
+    }
+
+    companion object{
+        private const val WET = 1
+        private const val ZW_WET_MIDDLE = 2
+        private const val MIDDLE = 3
+        private const val ZW_MIDDLE_DRY = 4
+        private const val DRY = 5
     }
 
 /*

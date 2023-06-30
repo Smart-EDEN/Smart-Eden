@@ -130,12 +130,14 @@ class FieldViewModel : ViewModel(){
 
     fun sendRolloCommand(command: String) {
         db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
-            .collection(CONTROL).document(ROLLO).set( hashMapOf("manual" to command))
+            .update("rollo_manuel_mode", command)
+            //.collection(CONTROL).document(ROLLO).set( hashMapOf("manual" to command))
     }
 
     fun sendWindowCommand(command: String) {
         db.collection(GREENHOUSE_COLLECTION).document(serialNumber)
-            .collection(CONTROL).document(WINDOW).set( hashMapOf("manual" to command))
+            .update("window_manuel_mode", command)
+            //.collection(CONTROL).document(WINDOW).set( hashMapOf("manual" to command))
     }
 
     fun sendBoostCommand(command: Boolean) {
@@ -150,10 +152,10 @@ class FieldViewModel : ViewModel(){
 
     companion object{
         private const val TAG = "FirestoreViewModel"
-        private const val GREENHOUSE_COLLECTION = "SerialNumber"
-        private const val CONTROL = "Control"
-        private const val ROLLO = "Rollo"
-        private const val WINDOW = "Window"
+        //private const val GREENHOUSE_COLLECTION = "SerialNumber"
+        //private const val CONTROL = "Control"
+        //private const val ROLLO = "Rollo"
+        //private const val WINDOW = "Window"
         //private const val BOOST = "Boost"
         private const val FIELD = "Fields"
     }
