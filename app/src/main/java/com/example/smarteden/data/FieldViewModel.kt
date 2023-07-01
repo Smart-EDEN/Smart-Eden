@@ -152,7 +152,7 @@ class FieldViewModel : ViewModel(){
 
     companion object{
         private const val TAG = "FirestoreViewModel"
-        //private const val GREENHOUSE_COLLECTION = "SerialNumber"
+        private const val GREENHOUSE_COLLECTION = "SerialNumber"
         //private const val CONTROL = "Control"
         //private const val ROLLO = "Rollo"
         //private const val WINDOW = "Window"
