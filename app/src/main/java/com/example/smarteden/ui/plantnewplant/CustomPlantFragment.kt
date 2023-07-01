@@ -135,13 +135,13 @@ class CustomPlantFragment : Fragment() {
 
 
     companion object{
-        private const val MUCH = 5
-        private const val ZW_MUCH_MIDDLE = 4
+        private const val MUCH = 1
+        private const val ZW_MUCH_MIDDLE = 2
         private const val MIDDLE = 3
-        private const val ZW_MIDDLE_LESS = 2
-        private const val LESS = 1
+        private const val ZW_MIDDLE_LESS = 4
+        private const val LESS = 5
 
-        private const val OFTEN = 5
-        private const val RARELY = 1
+        private const val OFTEN = 1
+        private const val RARELY = 5
     }
 }
